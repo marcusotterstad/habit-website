@@ -5,7 +5,7 @@ import './App.css';
 function App() {
   return (
     <div className="App">
-      Habit tracker
+      <h1>Habit Tracker</h1>
       {/* <NavBar /> */}
       <Habits />
     </div>
