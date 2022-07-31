@@ -12,11 +12,11 @@ function Habits() {
     for (let habit of habits) {
         switch (habit.type) {
             case "checkmark":
-                habitContainer.push(<CheckmarkHabitCard key={habit.name} name={habit.name} goal={habit.goal}  />);
+                habitContainer.push(<CheckmarkHabitCard key={habit.id} id={habit.id} name={habit.name} goal={habit.goal}  />);
                 break;
             
             case "duration":
-                habitContainer.push(<DurationHabitCard key={habit.name} name={habit.name} goal={habit.goal}  />);
+                habitContainer.push(<DurationHabitCard key={habit.id} id={habit.id} name={habit.name} goal={habit.goal}  />);
                 break;
 
             default:

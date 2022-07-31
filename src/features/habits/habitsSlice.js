@@ -1,9 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = [
-    {name: "meditation", type: "duration", goal: "meditate for 5-20 minutes every day" },
-    {name: "workout", type: "checkmark", goal: "work out with progressive overload 3-7 times a week"},
-    {name: "programming", type: "duration", goal: "quality work for 30-60 minutes every day"}
+    {id: 1, name: "meditation", type: "duration", goal: "meditate for 5-20 minutes every day"},
+    {id: 2, name: "workout", type: "checkmark", goal: "work out with progressive overload 3-7 times a week"},
+    {id: 3, name: "programming", type: "duration", goal: "quality work for 30-60 minutes every day"}
 ];
 
 export const habitsSlice = createSlice({

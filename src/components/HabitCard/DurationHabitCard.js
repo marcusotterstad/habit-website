@@ -2,27 +2,35 @@ import React, {useState} from 'react';
 import { ToggleButton } from 'react-bootstrap';
 import "./HabitCard.css";
 
-function DurationHabitCard({name, goal}) {
+function DurationHabitCard({id, name, goal}) {
 
-    const [payload, setPayload] = useState("");
+    const [duration, setDuration] = useState("");
+    const [notes, setNotes] = useState("");
 
-    const handlepayload = (event) => {
-        const newPayload = event.target.value;
-        setPayload(newPayload);
-        console.log(payload)
+    const handleDuration = (event) => {
+        const newDuration = event.target.value;
+        setDuration(newDuration);
+    }
+
+    const handleNotes = (event) => {
+        const newNotes = event.target.value;
+        setNotes(newNotes);
     }
 
     const sendPayload = async () => {
-        if(payload.length > 0) {
+        if(true) {
             var today = new Date();
             var date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-
-            await console.log(payload)
+            
+            console.log(date)
+            console.log(duration)
+            console.log(notes)
+            console.log(id)
         }
     }
     
     return (
-        <div className="card">
+        <div className="habit-card">
             <div className="info">
                 <h2>{name}</h2>
                 <p>{goal}</p>
@@ -30,14 +38,11 @@ function DurationHabitCard({name, goal}) {
             <hr />
             <div>
                 <label htmlFor="minutes"> minutes:&nbsp;</label>
-                <input name= "minutes" type="number" style={{maxWidth: 40}} min="0" />
+                <input name= "minutes" type="number" style={{maxWidth: 50}} onChange={handleDuration} min="0" />
             </div>
             <br />
-            <br />
                 <label htmlFor="notes">Notes</label>
-                <textarea className="form-control" name="notes" rows="2"></textarea>
-
-
+                <textarea className="form-control" name="notes" onChange={handleNotes} rows="2"></textarea>
                 <ToggleButton className="text-white bg-dark complete-button" onClick={sendPayload} >Complete</ToggleButton>
 
         </div>
