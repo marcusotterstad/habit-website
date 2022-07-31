@@ -5,9 +5,9 @@ import {
   Route,
   Link
 } from "react-router-dom";
-
 import Habits from '../features/habits/Habits';
 
+//style
 import './App.css';
 import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
