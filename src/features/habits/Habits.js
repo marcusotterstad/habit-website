@@ -1,16 +1,38 @@
 import React from 'react';
 import './Habits.css';
-
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { selectHabits } from './habitsSlice';
-import HabitCard from '../../components/HabitCard/HabitCard';
+import CheckmarkHabitCard from '../../components/HabitCard/CheckmarkHabitCard';
+import DurationHabitCard from '../../components/HabitCard/DurationHabitCard';
+//import CompletedCard from '../../components/HabitCard/CompletedCard';
 
 function Habits() {
     const habits = useSelector(selectHabits);
+    let habitContainer = [];
+    for (let habit of habits) {
+        switch (habit.type) {
+            case "checkmark":
+                habitContainer.push(<CheckmarkHabitCard key={habit.name} name={habit.name} goal={habit.goal}  />);
+                break;
+            
+            case "duration":
+                habitContainer.push(<DurationHabitCard key={habit.name} name={habit.name} goal={habit.goal}  />);
+                break;
+
+            default:
+                break;
+        }
+    }
+
     return (
+    <div>
+        <h1>Habit Tracker App</h1>
+
         <div class="container">
-            {habits.map((habit) => <HabitCard name={habit.name} type={habit.type} goal={habit.goal}  />)}
+            {habitContainer}
         </div>
+        <br />
+    </div>
     )
 }
 
