@@ -18,7 +18,7 @@ function HabitLog() {
     
     return (
     <div>
-        <Table stripped bordered hover variant="dark" size="sm">
+        <Table stripped bordered hover variant="dark" size="sm" >
         <thead>
             <tr>
                 <th width="170">Habit</th>
