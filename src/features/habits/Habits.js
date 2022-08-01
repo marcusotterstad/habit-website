@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import { selectHabits } from './habitsSlice';
 import CheckmarkHabitCard from '../../components/HabitCard/CheckmarkHabitCard';
 import DurationHabitCard from '../../components/HabitCard/DurationHabitCard';
-//import CompletedCard from '../../components/HabitCard/CompletedCard';
 
 function Habits() {
     const habits = useSelector(selectHabits);
@@ -28,7 +27,7 @@ function Habits() {
     <div>
         <h1>Habit Tracker App</h1>
 
-        <div class="container">
+        <div class="habitContainer">
             {habitContainer}
         </div>
         <br />

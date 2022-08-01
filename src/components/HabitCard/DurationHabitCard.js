@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import Habit from '../../features/habits/Habit';
+import Habit from '../../features/Habit';
 
 //style 
 
