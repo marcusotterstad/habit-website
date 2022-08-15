@@ -1,33 +1,33 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './Habits.css';
-import { useSelector } from 'react-redux';
-import { selectHabits } from './habitsSlice';
-import CheckmarkHabitCard from '../../components/HabitCard/CheckmarkHabitCard';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectHabits, fetchHabits} from './habitsSlice';
+
+//components
 import DurationHabitCard from '../../components/HabitCard/DurationHabitCard';
 
 function Habits() {
+    const dispatch = useDispatch();
     const habits = useSelector(selectHabits);
+  
+    const status = useSelector(state => state.habits.status);
+  
+    useEffect(() => {
+      if (status === 'idle') {
+        dispatch(fetchHabits())
+      }
+    }, [status, dispatch])
+  
     let habitContainer = [];
     for (let habit of habits) {
-        switch (habit.type) {
-            case "checkmark":
-                habitContainer.push(<CheckmarkHabitCard key={habit.id} id={habit.id} name={habit.name} goal={habit.goal}  />);
-                break;
-            
-            case "duration":
-                habitContainer.push(<DurationHabitCard key={habit.id} id={habit.id} name={habit.name} goal={habit.goal}  />);
-                break;
-
-            default:
-                break;
-        }
+        habitContainer.push(<DurationHabitCard key={habit.id} id={habit.id} name={habit.name} goal={habit.goal}  />);
     }
 
     return (
     <div>
         <h1>Habit Tracker App</h1>
 
-        <div class="habitContainer">
+        <div className="habitContainer">
             {habitContainer}
         </div>
         <br />

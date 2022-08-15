@@ -2,13 +2,7 @@ import React, {useState} from 'react';
 import { Form, FormGroup, FormLabel, FormSelect, FormText, Button } from 'react-bootstrap';
 
 
-function QueryForm() {
-    const [getBy, setGetBy] = useState("");
-
-    const handleGetBy = (e) => {
-        const newGetBy = e.target.value;
-        setGetBy(newGetBy);
-    }
+function QueryForm({handleGetBy, getBy}) {
 
     return (
     <div className="text-white">
@@ -44,7 +38,7 @@ function QueryForm() {
             </FormGroup>
         </div>
 
-        <br/><br/><br/>
+        <br/>
 
         <Button variant="secondary">Send Request to server</Button>
 

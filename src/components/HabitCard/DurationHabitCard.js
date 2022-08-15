@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
-import Habit from '../../features/Habit';
 
 //style 
-
 import { ToggleButton } from 'react-bootstrap';
 import "./HabitCard.css";
 
@@ -11,9 +9,10 @@ function DurationHabitCard({id, name, goal}) {
     const [completed, setCompleted] = useState(false);
     const [duration, setDuration] = useState("");
     const [notes, setNotes] = useState("");
+    const [message, setMessage] = useState("");
 
     const handleDuration = (event) => {
-        const newDuration = event.target.value;
+        const newDuration = parseInt(event.target.value);
         setDuration(newDuration);
     }
 
@@ -25,25 +24,42 @@ function DurationHabitCard({id, name, goal}) {
     const sendPayload = async () => {
         if(duration.length !== 0) {
             const today = new Date();
-            const date = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
-
-            const newPayload = new Habit(id, name, date, duration, notes);
-            
-            /*const response = await fetch('localhost:4001/habits/log', {
-            
-                method: 'POST', 
-                mode: 'cors', 
-                body: JSON.stringify(newPayload)
-            })*/
-
-            if(true) {
-                setCompleted(true);
+            let month = today.getMonth()+1;
+            if(month < 10) {
+                month = "0" + String(month);
             }
+            let day = today.getDate();
+            if(day < 10) {
+                day = "0" + String(day);
+            }
+            const date = today.getFullYear()+'-'+ month +'-'+ day;
 
-            console.log(date)
-            console.log(duration)
-            console.log(notes)
-            console.log(id)
+            const newPayload = {
+                date: date,
+                habit_id: id,
+                user_id: 1,
+                duration: duration,
+                notes: notes
+                
+            };
+            console.log(JSON.stringify(newPayload));
+            
+            const response = await fetch('/habits/post', {
+                headers: {
+                    "Accept": "application/json",
+                    "Content-Type": "application/json",
+                    "Access-Control-Allow-Origin": "*"
+                },
+                method: 'POST',
+                body: JSON.stringify(newPayload)
+            });
+
+            if(response.ok) {
+                setCompleted(true);
+                setMessage(response.text);
+            } else {
+                throw(new Error("Could not send request"));
+            }
         }
     }
     
@@ -54,7 +70,7 @@ function DurationHabitCard({id, name, goal}) {
                 <p>{goal}</p>
             </div>
             <hr />
-            {completed ? "Completed" : <div>
+            {completed ? message : <div>
                 <div>
                     <label htmlFor="minutes"> minutes:&nbsp;</label>
                     <input name= "minutes" type="number" style={{maxWidth: 80}} onChange={handleDuration} min="0" />
