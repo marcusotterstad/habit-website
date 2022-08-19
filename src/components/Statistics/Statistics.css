@@ -9,7 +9,6 @@
     position: absolute;
     width: 50%;
     height: 45vh;
-    border: 1px solid black;
 }
 .component2 {
     position: absolute;
@@ -19,7 +18,7 @@
 }
 .component3 {
     position: absolute;
-    align-items: center;
+    align-content: center;
     bottom: 10px;
     left: 10px;
     width: 50%;

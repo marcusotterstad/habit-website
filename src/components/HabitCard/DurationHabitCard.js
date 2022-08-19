@@ -44,7 +44,7 @@ function DurationHabitCard({id, name, goal}) {
             };
             console.log(JSON.stringify(newPayload));
             
-            const response = await fetch('/habits/post', {
+            const response = await fetch('/habit-log', {
                 headers: {
                     "Accept": "application/json",
                     "Content-Type": "application/json",

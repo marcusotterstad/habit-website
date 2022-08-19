@@ -2,11 +2,29 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchHabitLog = createAsyncThunk(
     'habits/fetchHabitLog',
-    async () => {
-        const response = await fetch("http://localhost:4000/habitlog")
-        return response.json();
-    }
-)
+    async ({getBy, condition, input}, thunkAPI) => {
+      console.log({getBy, condition, input})
+      if(input) {
+        const queryString = `/habit-log?getBy=${getBy}&condition=${condition}&input=${input}`;
+          
+          const response = await fetch(queryString, {
+              headers: {
+                  "Accept": "application/json",
+                  "Content-Type": "application/json",
+                  "Access-Control-Allow-Origin": "*"
+              }
+          });
+
+          if(response.ok) {
+              return response.json();
+          } else {
+              throw(new Error("Something with the request went wrong."));
+          }
+        } else {
+          throw(new Error("input is not valid"))
+        }
+      }
+    )
 
 const initialState = {
   entities: [],
@@ -32,17 +50,6 @@ export const habitLogSlice = createSlice({
         })
     }
 });
-
-export const selectHabits = (state) => state.habits.entities;
-
-/*const initialState = [
-    {id: 1, name: "meditation", date: "2/7/2022", duration: 20, notes: "high quality meditation"},
-    {id: 2, name: "programming", date: "2/7/2022", duration: 120, notes: "worked on habits app"},
-    {id: 3, name: "workout", date: "2/7/2022", notes: "push A"},
-    {id: 4, name: "meditation", date: "3/7/2022", duration: 18, notes: "did not focus well"},
-    {id: 5, name: "programming", date: "3/7/2022", duration: 120, notes: "continued on habit app"},
-
-];*/
 
 export const selectHabitLog = (state) => state.habitLog.entities;
 

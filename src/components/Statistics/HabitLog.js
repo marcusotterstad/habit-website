@@ -1,25 +1,13 @@
-import React, {useEffect} from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { selectHabitLog, fetchHabitLog} from './habitLogSlice';
+import React from 'react';
 import { Table } from 'react-bootstrap';
 
-function HabitLog() {
-    const dispatch = useDispatch();
-    const habitLog = useSelector(selectHabitLog);
-  
-    const status = useSelector(state => state.habitLog.status);
-  
-    useEffect(() => {
-      if (status === 'idle') {
-        dispatch(fetchHabitLog())
-      }
-    }, [status, dispatch])
+function HabitLog({list}) {
     const rows = [];
-    for (let row of habitLog) {
-        const tableRow = (<tr key={row.id}>
-            <td>{row.id}</td>
-            <td>{row.name}</td>
+    for (let row of list) {
+        const tableRow = (
+        <tr>
             <td>{row.date}</td>
+            <td>{row.name}</td>
             <td>{row.duration}</td>
             <td>{row.notes}</td>
         </tr>)
@@ -31,7 +19,6 @@ function HabitLog() {
         <Table stripped bordered hover variant="dark" size="sm" >
         <thead>
             <tr>
-                <th width="170">Id</th>
                 <th width="170">Habit</th>
                 <th width="170">Date</th>
                 <th width="870">Duration</th>
